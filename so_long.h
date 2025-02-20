@@ -6,7 +6,7 @@
 /*   By: alegrix <alegrix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/24 02:33:11 by alegrix           #+#    #+#             */
-/*   Updated: 2025/02/12 07:28:18 by alegrix          ###   ########.fr       */
+/*   Updated: 2025/02/16 02:14:48 by alegrix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 
 # include <unistd.h>
 # include <fcntl.h>
-# include "libs/minilibx/mlx.h"
-# include "libs/minilibx/mlx_int.h"
+# include "libs/minilibx-linux/mlx.h"
+# include "libs/minilibx-linux/mlx_int.h"
 # include "libs/libft/libft.h"
 # include "libs/libft/ft_printf/ft_printf.h"
 
@@ -70,6 +70,7 @@ typedef struct s_map
 	int		is_malloc;
 	int		has_exit;
 	int		has_start;
+	int		app;
 	int		fd;
 	char	*name;
 	int		x_s;

@@ -27,7 +27,7 @@ void	malloc_and_mchecker(t_game *game, char **argv)
 	if (!game->ins->mlx)
 		al_error("Mallox MLX");
 	game->ins->win = mlx_new_window
-		(game->ins->mlx, game->map->x_s * PX, game->map->y_s * PX, "So_Long");
+		(game->ins->mlx, game->map->x_s * PX, game->map->y_s * PX, "SL");
 	spriting(game);
 	while (1)
 		display(game);

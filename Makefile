@@ -5,7 +5,7 @@ NAME = so_long
 
 LIBFT = libs/libft
 LIBFTPRINTF = libs/libft/ft_printf
-LIBX = libs/minilibx
+LIBX = libs/minilibx-linux
 
 GREEN = \033[32m
 RED = \033[31m
@@ -26,8 +26,9 @@ $(NAME): $(OBJS)
 		(echo "$(TERM_UP)$(RED)Error in ft_printf compilation!$(DEF_COLOR)" && exit 1)
 	@$(MAKE) -C $(LIBX) -s all ||\
 		(echo "$(TERM_UP)$(RED)Error in MLX compilation!$(DEF_COLOR)" && exit 1)
-	@$(CC) $(CFLAGS) $(MLXFLAGS) $(OBJS) -L $(LIBFT) -lftprintf -L $(LIBFTPRINTF) -lft -L $(LIBX) -lmlx -o $(NAME) || \
-		(echo "$(TERM_UP)$(RED)Error during linking!$(DEF_COLOR)" && exit 1)
+	@$(CC) $(CFLAGS) $(OBJS) -L $(LIBFT) -lftprintf -L $(LIBFTPRINTF) -lft -L $(LIBX) $(MLXFLAGS) -o $(NAME) || \
+	    (echo "$(TERM_UP)$(RED)Error during linking!$(DEF_COLOR)" && exit 1)
+
 
 %.o: %.c
 	@$(CC) $(CFLAGS) -c $< -o $@ ||\

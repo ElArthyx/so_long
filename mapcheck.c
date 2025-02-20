@@ -51,12 +51,14 @@ void	check_line_content(t_map *map, char *line)
 			map->has_exit += 1;
 		else if (line[i] == 'H')
 			map->has_start += 1;
+		else if (line[i] == 'P')
+			map->app += 1;
 		i++;
-		if (map->has_exit > 1 || map->has_start > 1)
-		{
-			free(line);
-			al_error("There is more than 1 exit or 1 start");
-		}
+	}
+	if (map->has_exit > 1 || map->has_start > 1)
+	{
+		free(line);
+		al_error("There is more than 1 exit or 1 start or not item");
 	}
 }
 
@@ -68,20 +70,22 @@ void	check_map_form(t_map *map)
 	line = get_next_line(map->fd);
 	if (line == NULL)
 		al_error("Empty file");
-	map->x_s = ft_strlen(line);
+	map->x_s = ft_strlen(line) - 1;
 	map->content = malloc(sizeof(char *) * (map->y_s + 1));
 	if (!map->content)
 		exit(2);
 	i = 0;
 	while (line[0] != '\0')
 	{
-		if (map->x_s != (int)ft_strlen(line))
+		if (map->x_s != (int)ft_strlen(line) - 1)
 			al_error("The map isn't a rectangle");
 		check_line_content(map, line);
 		map->content[i++] = line;
 		line = get_next_line(map->fd);
 	}
 	map->content[i] = NULL;
+	if (map->app < 1)
+		al_error("Not item");
 }
 
 void	check_file_name(t_map *map)
