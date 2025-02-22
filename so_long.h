@@ -6,7 +6,7 @@
 /*   By: alegrix <alegrix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/24 02:33:11 by alegrix           #+#    #+#             */
-/*   Updated: 2025/02/16 02:14:48 by alegrix          ###   ########.fr       */
+/*   Updated: 2025/02/21 00:31:14 by alegrix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 
 # include <unistd.h>
 # include <fcntl.h>
-# include "libs/minilibx-linux/mlx.h"
-# include "libs/minilibx-linux/mlx_int.h"
+# include "libs/minilibx/mlx.h"
+# include "libs/minilibx/mlx_int.h"
 # include "libs/libft/libft.h"
 # include "libs/libft/ft_printf/ft_printf.h"
 
@@ -91,6 +91,8 @@ typedef struct s_game
 	t_sprites	*spt;
 }				t_game;
 
+void	ff(t_game *g);
+int		free_array(char **array);
 void	al_error(char *name_err);
 void	mapchecker(t_game *game);
 void	display(t_game *g);

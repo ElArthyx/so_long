@@ -1,0 +1,104 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ff.c                                               :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: alegrix <alegrix@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/02/20 23:11:06 by alegrix           #+#    #+#             */
+/*   Updated: 2025/02/22 01:40:23 by alegrix          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "so_long.h"
+
+int	flood_fill_exit(char **map, int y, int x)
+{
+	int	result;
+
+	result = 0;
+	if (map[y][x] == 'E')
+		return (1);
+	map[y][x] = 'W';
+	if (map[y + 1][x] != 'W')
+		result += flood_fill_exit(map, y + 1, x);
+	if (map[y - 1][x] != 'W')
+		result += flood_fill_exit(map, y - 1, x);
+	if (map[y][x + 1] != 'W')
+		result += flood_fill_exit(map, y, x + 1);
+	if (map[y][x - 1] != 'W')
+		result += flood_fill_exit(map, y, x - 1);
+	return (result);
+}
+
+int	flood_fill_apple(char **map, int y, int x)
+{
+	int	result;
+
+	result = 0;
+	if (map[y][x] == 'P')
+	{
+		map[y][x] = 'W';
+		result++;
+	}
+	map[y][x] = 'W';
+	if (map[y + 1][x] != 'W' && map[y + 1][x] != 'E')
+		result += flood_fill_apple(map, y + 1, x);
+	if (map[y - 1][x] != 'W' && map[y - 1][x] != 'E')
+		result += flood_fill_apple(map, y - 1, x);
+	if (map[y][x + 1] != 'W' && map[y][x + 1] != 'E')
+		result += flood_fill_apple(map, y, x + 1);
+	if (map[y][x - 1] != 'W' && map[y][x - 1] != 'E')
+		result += flood_fill_apple(map, y, x - 1);
+	return (result);
+}
+
+char	**ft_strdup_tab(char **t1)
+{
+	int		i;
+	char	**t2;
+
+	i = 0;
+	while (t1[i] != NULL)
+		i++;
+	t2 = malloc(sizeof(char *) * (i + 1));
+	if (!t2)
+		al_error("Malloc map temp");
+	i = 0;
+	while (t1[i] != NULL)
+	{
+		t2[i] = ft_strdup(t1[i]);
+		i++;
+	}
+	t2[i] = NULL;
+	return (t2);
+}
+
+void	ff(t_game *g)
+{
+	int		y;
+	int		x;
+	char	**tmp;
+
+	y = 0;
+	while (g->map->content[y] != NULL)
+	{
+		x = 0;
+		while (g->map->content[y][x])
+		{
+			if (g->map->content[y][x] == 'H')
+				break ;
+			x++;
+		}
+		if (g->map->content[y][x] == 'H')
+			break ;
+		y++;
+	}
+	tmp = ft_strdup_tab(g->map->content);
+	if (flood_fill_exit(tmp, y, x) == 0)
+		return (free_array(tmp), al_error("Can't join exit"));
+	free_array(tmp);
+	tmp = ft_strdup_tab(g->map->content);
+	if (flood_fill_apple(tmp, y, x) != g->map->app)
+		return (free_array(tmp), al_error("No all apple accessible"));
+}

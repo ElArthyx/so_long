@@ -6,7 +6,7 @@
 /*   By: alegrix <alegrix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 01:28:18 by alegrix           #+#    #+#             */
-/*   Updated: 2025/02/12 07:28:33 by alegrix          ###   ########.fr       */
+/*   Updated: 2025/02/21 00:51:35 by alegrix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,8 @@ void	check_map_form(t_map *map)
 	i = 0;
 	while (line[0] != '\0')
 	{
+		if (ft_strchr(line, '\n') == NULL)
+			line = ft_strjoin(line, "\n");
 		if (map->x_s != (int)ft_strlen(line) - 1)
 			al_error("The map isn't a rectangle");
 		check_line_content(map, line);
@@ -105,7 +107,6 @@ void	check_file_name(t_map *map)
 	temp = get_next_line(map->fd);
 	while (temp != NULL && temp[0] != '\0')
 	{
-		ft_printf("%s", temp);
 		free(temp);
 		map->y_s++;
 		temp = get_next_line(map->fd);

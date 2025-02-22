@@ -5,14 +5,14 @@ NAME = so_long
 
 LIBFT = libs/libft
 LIBFTPRINTF = libs/libft/ft_printf
-LIBX = libs/minilibx-linux
+LIBX = libs/minilibx
 
 GREEN = \033[32m
 RED = \033[31m
 DEF_COLOR = \033[0m
 TERM_UP = \033[A
 
-SRCS = display.c error.c main.c mapcheck.c
+SRCS = display.c error.c main.c mapcheck.c ff.c
 
 OBJS = $(SRCS:.c=.o)
 
