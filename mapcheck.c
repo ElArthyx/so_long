@@ -6,7 +6,7 @@
 /*   By: alegrix <alegrix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 01:28:18 by alegrix           #+#    #+#             */
-/*   Updated: 2025/02/23 01:37:51 by alegrix          ###   ########.fr       */
+/*   Updated: 2025/02/23 20:21:09 by alegrix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,13 @@ void	check_border(t_map *map, t_game *g)
 	int	col;
 
 	line = 0;
-	while (map->content[line] != NULL)
+	while (map->con[line] != NULL)
 	{
 		col = 0;
-		while (map->content[line][col] && map->content[line][col] != '\n')
+		while (map->con[line][col] && map->con[line][col] != '\n')
 		{
 			if (line == 0 || line == map->y_s || col == 0 || col == map->x_s)
-				if (map->content[line][col] != 'W')
+				if (map->con[line][col] != 'W')
 					al_error("Border need full Wall", g);
 			col++;
 		}
@@ -70,8 +70,8 @@ void	check_map_form(t_map *map, t_game *g)
 	if (line == NULL)
 		al_error("Empty file", g);
 	map->x_s = ft_strlen(line) - 1;
-	map->content = malloc(sizeof(char *) * (map->y_s + 1));
-	if (!map->content)
+	map->con = malloc(sizeof(char *) * (map->y_s + 1));
+	if (!map->con)
 		exit(2);
 	map->is_mcont = 1;
 	i = 0;
@@ -82,10 +82,10 @@ void	check_map_form(t_map *map, t_game *g)
 		if (map->x_s != (int)ft_strlen(line) - 1)
 			al_error("The map isn't a rectangle", g);
 		check_line_content(map, line, g);
-		map->content[i++] = line;
+		map->con[i++] = line;
 		line = get_next_line(map->fd);
 	}
-	map->content[i] = NULL;
+	map->con[i] = NULL;
 	if (map->app < 1)
 		al_error("Not item", g);
 }

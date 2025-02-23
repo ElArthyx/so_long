@@ -6,7 +6,7 @@
 /*   By: alegrix <alegrix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 23:41:20 by alegrix           #+#    #+#             */
-/*   Updated: 2025/02/23 02:21:57 by alegrix          ###   ########.fr       */
+/*   Updated: 2025/02/23 22:11:45 by alegrix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,10 +43,12 @@ void	malloc_and_mchecker(t_game *game, char **argv)
 	spriting(game);
 }
 
-int	key_c(int key_code, t_game *g)
+int	key_c(int keyc, t_game *g)
 {
-	if (key_code == 53)
+	if (keyc == 53)
 		mlx_destroy_window(g->ins->mlx, g->ins->win);
+	else if (keyc == W && dir != SOUTH)
+		dir
 	return (0);
 }
 
@@ -61,8 +63,8 @@ int	main(int argc, char **argv)
 		al_error("malloc struct game", game);
 	malloc_and_mchecker(game, argv);
 	display(game);
-	mlx_hook(game->ins->win, 17, 0, closer, game->ins);
-	mlx_key_hook(game->ins->win, key_c, game);
-	mlx_loop_hook(void *mlx_ptr, int (*funct_ptr)(), void *param)
+	mlx_hook(game->ins->win, 17, 0, free_all, game);
+	mlx_hook(game->ins->win, 2, KeyPressMask, key_c, game);
+	mlx_loop_hook(game->ins->mlx, gclock, game);
 	mlx_loop(game->ins->mlx);
 }

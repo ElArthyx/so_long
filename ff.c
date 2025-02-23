@@ -6,7 +6,7 @@
 /*   By: alegrix <alegrix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 23:11:06 by alegrix           #+#    #+#             */
-/*   Updated: 2025/02/22 01:40:23 by alegrix          ###   ########.fr       */
+/*   Updated: 2025/02/23 20:21:49 by alegrix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ int	flood_fill_apple(char **map, int y, int x)
 	return (result);
 }
 
-char	**ft_strdup_tab(char **t1)
+char	**ft_strdup_tab(char **t1, t_game *g)
 {
 	int		i;
 	char	**t2;
@@ -63,7 +63,7 @@ char	**ft_strdup_tab(char **t1)
 		i++;
 	t2 = malloc(sizeof(char *) * (i + 1));
 	if (!t2)
-		al_error("Malloc map temp");
+		al_error("Malloc map temp", g);
 	i = 0;
 	while (t1[i] != NULL)
 	{
@@ -74,31 +74,48 @@ char	**ft_strdup_tab(char **t1)
 	return (t2);
 }
 
+void	find_head(t_game *g)
+{
+	int	y;
+	int	x;
+
+	y = 0;
+	while (g->map->con[y] != NULL)
+	{
+		x = 0;
+		while (g->map->con[y][x] != '\n')
+		{
+			if (g->map->con[y][x] == 'H')
+			{
+				g->snk->h_y = y;
+				g->snk->h_y = x;
+			}
+			if (g->map->con[y][x] == 'E')
+			{
+				g->map->xe = x;
+				g->map->ye = y;
+			}
+			x++;
+		}
+		y++;
+	}
+}
+
 void	ff(t_game *g)
 {
 	int		y;
 	int		x;
 	char	**tmp;
 
-	y = 0;
-	while (g->map->content[y] != NULL)
-	{
-		x = 0;
-		while (g->map->content[y][x])
-		{
-			if (g->map->content[y][x] == 'H')
-				break ;
-			x++;
-		}
-		if (g->map->content[y][x] == 'H')
-			break ;
-		y++;
-	}
-	tmp = ft_strdup_tab(g->map->content);
+	find_head(g);
+	y = g->snk->h_y;
+	x = g->snk->h_x;
+	tmp = ft_strdup_tab(g->map->con, g);
 	if (flood_fill_exit(tmp, y, x) == 0)
-		return (free_array(tmp), al_error("Can't join exit"));
+		return (free_array(tmp), al_error("Can't join exit", g));
 	free_array(tmp);
-	tmp = ft_strdup_tab(g->map->content);
+	tmp = ft_strdup_tab(g->map->con, g);
 	if (flood_fill_apple(tmp, y, x) != g->map->app)
-		return (free_array(tmp), al_error("No all apple accessible"));
+		return (free_array(tmp), al_error("No all apple accessible", g));
+	free_array(tmp);
 }

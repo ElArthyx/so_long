@@ -6,7 +6,7 @@
 /*   By: alegrix <alegrix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/24 02:33:11 by alegrix           #+#    #+#             */
-/*   Updated: 2025/02/23 03:31:07 by alegrix          ###   ########.fr       */
+/*   Updated: 2025/02/23 22:10:25 by alegrix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,12 @@
 # define NORTH 2
 # define SOUTH 4
 
+# define W 13
+# define D 2
+# define S 1
+# define A 0
+# define ESC 53
+
 typedef struct s_sprites
 {
 	t_img	*back;
@@ -38,10 +44,7 @@ typedef struct s_sprites
 	t_img	*h_w;
 	t_img	*b;
 	t_img	*ex;
-	t_img	*t_e;
-	t_img	*t_n;
-	t_img	*t_w;
-	t_img	*t_s;
+	t_img	*eo;
 	t_img	*p;
 }			t_sprites;
 
@@ -66,15 +69,19 @@ typedef struct s_player
 
 typedef struct s_map
 {
-	char	**content;
+	char	**con;
 	int		is_mcont;
 	int		has_exit;
 	int		has_start;
 	int		app;
 	int		fd;
 	char	*name;
+	int		xe;
+	int		ye;
 	int		x_s;
 	int		y_s;
+	int		yap;
+	int		xap;
 }			t_map;
 
 typedef struct s_ins
@@ -99,9 +106,16 @@ typedef struct s_game
 }				t_game;
 
 void	ff(t_game *g);
-int		free_array(char **array);
+void	free_array(char **array);
 void	al_error(char *name_err, t_game *game);
 void	mapchecker(t_game *game);
 void	display(t_game *g);
 void	spriting(t_game *g);
+void	head_bod(t_player *snk, t_game *g);
+int		size_snk(t_player *p);
+void	giv_app(t_map *map);
+void	flast_bod(t_player *p, t_map *map);
+int		gclock(t_game *g);
+int		free_all(t_game *g);
+
 #endif

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   test.c                                             :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: alegrix <alegrix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 00:51:56 by alegrix           #+#    #+#             */
-/*   Updated: 2025/02/12 00:52:17 by alegrix          ###   ########.fr       */
+/*   Updated: 2025/02/23 20:36:26 by alegrix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,14 +28,15 @@ int	rnd(int nb)
 	return (r);
 }
 
-void	give_item_pos(t_item *item, t_map *map, char l)
+void	giv_app(t_map *map)
 {
-	item->x_p = rnd(map->x_s);
-	item->y_p = rnd(map->y_s);
-	while (map->content[item->y_p][item->x_p] != '0')
+	map->xap = rnd(map->x_s);
+	map->yap = rnd(map->y_s);
+	while (map->con[map->yap][map->xap] != '0')
 	{
-		item->y_p = rnd(map->x_s);
-		item->x_p = rnd(map->x_s);
+		map->yap = rnd(map->y_s);
+		map->xap = rnd(map->x_s);
 	}
-	map->content[item->y_p][item->x_p] = l;
+	map->con[map->yap][map->xap] = 'P';
+	map->app++;
 }
