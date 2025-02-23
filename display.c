@@ -6,7 +6,7 @@
 /*   By: alegrix <alegrix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 00:53:17 by alegrix           #+#    #+#             */
-/*   Updated: 2025/02/12 07:27:51 by alegrix          ###   ########.fr       */
+/*   Updated: 2025/02/23 03:32:41 by alegrix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@ void	spriting(t_game *g)
 
 	g->spt = malloc(sizeof(t_sprites));
 	if (!g->spt)
-		al_error("Sprites alloc");
-	g->spt->is_malloc = 1;
+		al_error("Sprites alloc", g);
+	g->mal_spt = 1;
 	g->spt->h_e = mlx_xpm_file_to_image(g->ins->mlx, "sprt/h_e.xpm", &w, &l);
 	g->spt->h_n = mlx_xpm_file_to_image(g->ins->mlx, "sprt/h_n.xpm", &w, &l);
 	g->spt->h_w = mlx_xpm_file_to_image(g->ins->mlx, "sprt/h_w.xpm", &w, &l);

@@ -6,7 +6,7 @@
 /*   By: alegrix <alegrix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 23:41:20 by alegrix           #+#    #+#             */
-/*   Updated: 2025/02/22 02:41:07 by alegrix          ###   ########.fr       */
+/*   Updated: 2025/02/23 02:21:57 by alegrix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,18 +24,22 @@ void	malloc_and_mchecker(t_game *game, char **argv)
 {
 	game->map = malloc(sizeof(t_map));
 	if (!(game->map))
-		al_error("malloc struct map");
+		al_error("malloc struct map", game);
+	game->mal_map = 1;
 	game->map->name = argv[1];
 	mapchecker(game);
 	ff(game);
 	game->ins = malloc(sizeof(t_ins));
 	if (!game->ins)
-		al_error("Malloc struc ins");
+		al_error("Malloc struc ins", game);
+	game->mal_ins = 1;
 	game->ins->mlx = mlx_init();
 	if (!game->ins->mlx)
-		al_error("Mallox MLX");
+		al_error("Mallox MLX", game);
+	game->ins->mal_mlx = 1;
 	game->ins->win = mlx_new_window
 		(game->ins->mlx, game->map->x_s * PX, game->map->y_s * PX, "SL");
+	game->ins->mal_win = 1;
 	spriting(game);
 }
 
@@ -54,10 +58,10 @@ int	main(int argc, char **argv)
 		return (ft_printf("Bad arguments, try this :\n ./so_long file.ber"), 0);
 	game = malloc(sizeof(t_game));
 	if (!game)
-		al_error("malloc struct game");
+		al_error("malloc struct game", game);
 	malloc_and_mchecker(game, argv);
 	display(game);
-	mlx_hook(game->ins->win, 2, 1L << 0, closer, game->ins);
+	mlx_hook(game->ins->win, 17, 0, closer, game->ins);
 	mlx_key_hook(game->ins->win, key_c, game);
 	mlx_loop_hook(void *mlx_ptr, int (*funct_ptr)(), void *param)
 	mlx_loop(game->ins->mlx);

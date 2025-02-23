@@ -6,7 +6,7 @@
 /*   By: alegrix <alegrix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/24 02:33:11 by alegrix           #+#    #+#             */
-/*   Updated: 2025/02/21 00:31:14 by alegrix          ###   ########.fr       */
+/*   Updated: 2025/02/23 03:31:07 by alegrix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@
 
 typedef struct s_sprites
 {
-	int		is_malloc;
 	t_img	*back;
 	t_img	*w;
 	t_img	*h_e;
@@ -56,18 +55,19 @@ typedef struct s_body
 typedef struct s_player
 {
 	int		dir;
-	int		pdir;
+	int		ldir;
 	int		score;
-	int		nbmov;
 	int		h_x;
 	int		h_y;
+	int		n_x;
+	int		n_y;
 	t_body	*body;
 }			t_player;
 
 typedef struct s_map
 {
 	char	**content;
-	int		is_malloc;
+	int		is_mcont;
 	int		has_exit;
 	int		has_start;
 	int		app;
@@ -81,19 +81,26 @@ typedef struct s_ins
 {
 	void	*mlx;
 	void	*win;
+	int		mal_win;
+	int		mal_mlx;
 }			t_ins;
 
 typedef struct s_game
 {
 	t_map		*map;
 	t_ins		*ins;
-	t_player	*snake;
+	t_player	*snk;
 	t_sprites	*spt;
+	int			mal_ins;
+	int			mal_map;
+	int			mal_spt;
+	int			mvm;
+	int			first;
 }				t_game;
 
 void	ff(t_game *g);
 int		free_array(char **array);
-void	al_error(char *name_err);
+void	al_error(char *name_err, t_game *game);
 void	mapchecker(t_game *game);
 void	display(t_game *g);
 void	spriting(t_game *g);

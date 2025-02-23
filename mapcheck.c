@@ -6,14 +6,14 @@
 /*   By: alegrix <alegrix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 01:28:18 by alegrix           #+#    #+#             */
-/*   Updated: 2025/02/21 00:51:35 by alegrix          ###   ########.fr       */
+/*   Updated: 2025/02/23 01:37:51 by alegrix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 #include <unistd.h>
 
-void	check_border(t_map *map)
+void	check_border(t_map *map, t_game *g)
 {
 	int	line;
 	int	col;
@@ -24,17 +24,16 @@ void	check_border(t_map *map)
 		col = 0;
 		while (map->content[line][col] && map->content[line][col] != '\n')
 		{
-			if (line == 0 || line == map->y_s
-				|| col == 0 || col == map->x_s)
+			if (line == 0 || line == map->y_s || col == 0 || col == map->x_s)
 				if (map->content[line][col] != 'W')
-					al_error("Border need full Wall");
+					al_error("Border need full Wall", g);
 			col++;
 		}
 		line++;
 	}
 }
 
-void	check_line_content(t_map *map, char *line)
+void	check_line_content(t_map *map, char *line, t_game *g)
 {
 	int	i;
 
@@ -45,7 +44,7 @@ void	check_line_content(t_map *map, char *line)
 		{
 			ft_printf("%c", line[i]);
 			free(line);
-			al_error("Bad char in file.ber");
+			al_error("Bad char in file.ber", g);
 		}
 		if (line[i] == 'E')
 			map->has_exit += 1;
@@ -58,52 +57,53 @@ void	check_line_content(t_map *map, char *line)
 	if (map->has_exit > 1 || map->has_start > 1)
 	{
 		free(line);
-		al_error("There is more than 1 exit or 1 start or not item");
+		al_error("There is more than 1 exit or 1 start or not item", g);
 	}
 }
 
-void	check_map_form(t_map *map)
+void	check_map_form(t_map *map, t_game *g)
 {
 	char	*line;
 	int		i;
 
 	line = get_next_line(map->fd);
 	if (line == NULL)
-		al_error("Empty file");
+		al_error("Empty file", g);
 	map->x_s = ft_strlen(line) - 1;
 	map->content = malloc(sizeof(char *) * (map->y_s + 1));
 	if (!map->content)
 		exit(2);
+	map->is_mcont = 1;
 	i = 0;
 	while (line[0] != '\0')
 	{
 		if (ft_strchr(line, '\n') == NULL)
 			line = ft_strjoin(line, "\n");
 		if (map->x_s != (int)ft_strlen(line) - 1)
-			al_error("The map isn't a rectangle");
-		check_line_content(map, line);
+			al_error("The map isn't a rectangle", g);
+		check_line_content(map, line, g);
 		map->content[i++] = line;
 		line = get_next_line(map->fd);
 	}
 	map->content[i] = NULL;
 	if (map->app < 1)
-		al_error("Not item");
+		al_error("Not item", g);
 }
 
-void	check_file_name(t_map *map)
+void	check_file_name(t_map *map, t_game *g)
 {
 	char	*temp;
 
 	temp = map->name;
 	if (temp == NULL)
-		al_error("No file.ber");
+		al_error("No file.ber", g);
 	while (*(temp + 4) != '\0')
 		temp++;
 	if (ft_strncmp(temp, ".ber", 4) != 0)
-		al_error("File extension, try this :\n ./so_long file.ber");
+		al_error("File extension, try this :\n ./so_long file.ber", g);
 	map->fd = open(map->name, O_RDONLY);
 	if (map->fd == -1)
-		al_error("The file.ber was not found");
+		al_error("The file.ber was not found", g);
 	temp = get_next_line(map->fd);
 	while (temp != NULL && temp[0] != '\0')
 	{
@@ -116,11 +116,11 @@ void	check_file_name(t_map *map)
 
 void	mapchecker(t_game *game)
 {
-	check_file_name(game->map);
+	check_file_name(game->map, game);
 	game->map->fd = open(game->map->name, O_RDONLY);
 	if (game->map->fd == -1)
-		al_error("Open fd");
-	check_map_form(game->map);
+		al_error("Open fd", game);
+	check_map_form(game->map, game);
 	close(game->map->fd);
-	check_border(game->map);
+	check_border(game->map, game);
 }
