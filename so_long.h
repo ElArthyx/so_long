@@ -6,7 +6,7 @@
 /*   By: alegrix <alegrix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/24 02:33:11 by alegrix           #+#    #+#             */
-/*   Updated: 2025/02/23 22:10:25 by alegrix          ###   ########.fr       */
+/*   Updated: 2025/02/24 01:10:04 by alegrix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,11 @@
 # include "libs/minilibx/mlx_int.h"
 # include "libs/libft/libft.h"
 # include "libs/libft/ft_printf/ft_printf.h"
+# include <X11/Xutil.h>
+# include <X11/keysym.h>
 
 # define L_OBJECT "0WEHP"
-# define FPS 4
+# define FPS 120
 # define PX 32
 # define EAST 1
 # define WEST 3
@@ -103,6 +105,8 @@ typedef struct s_game
 	int			mal_spt;
 	int			mvm;
 	int			first;
+	int			cur_fps;
+	int			block;
 }				t_game;
 
 void	ff(t_game *g);
@@ -117,5 +121,5 @@ void	giv_app(t_map *map);
 void	flast_bod(t_player *p, t_map *map);
 int		gclock(t_game *g);
 int		free_all(t_game *g);
-
+void	gcontent(t_game *g, t_player *s, t_map *m);
 #endif

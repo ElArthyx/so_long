@@ -6,7 +6,7 @@
 /*   By: alegrix <alegrix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 21:22:52 by alegrix           #+#    #+#             */
-/*   Updated: 2025/02/23 21:58:42 by alegrix          ###   ########.fr       */
+/*   Updated: 2025/02/24 02:35:39 by alegrix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ int	free_all(t_game *g)
 		free(g->ins);
 	}
 	free(g);
-	return (1);
+	exit (1);
 }
 
 void	al_error(char *name_err, t_game *g)
@@ -68,3 +68,5 @@ void	al_error(char *name_err, t_game *g)
 	ft_printf("Error\n%s\n", name_err);
 	free_all(g);
 }
+
+

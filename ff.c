@@ -6,7 +6,7 @@
 /*   By: alegrix <alegrix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 23:11:06 by alegrix           #+#    #+#             */
-/*   Updated: 2025/02/23 20:21:49 by alegrix          ###   ########.fr       */
+/*   Updated: 2025/02/23 23:36:20 by alegrix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,12 +83,12 @@ void	find_head(t_game *g)
 	while (g->map->con[y] != NULL)
 	{
 		x = 0;
-		while (g->map->con[y][x] != '\n')
+		while (g->map->con[y][x])
 		{
 			if (g->map->con[y][x] == 'H')
 			{
 				g->snk->h_y = y;
-				g->snk->h_y = x;
+				g->snk->h_x = x;
 			}
 			if (g->map->con[y][x] == 'E')
 			{

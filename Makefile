@@ -12,7 +12,7 @@ RED = \033[31m
 DEF_COLOR = \033[0m
 TERM_UP = \033[A
 
-SRCS = display.c error.c main.c mapcheck.c ff.c
+SRCS = display.c error.c main.c mapcheck.c utils.c utils_body.c ff.c event.c
 
 OBJS = $(SRCS:.c=.o)
 

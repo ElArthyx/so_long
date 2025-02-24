@@ -6,7 +6,7 @@
 /*   By: alegrix <alegrix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 18:15:37 by alegrix           #+#    #+#             */
-/*   Updated: 2025/02/23 20:41:59 by alegrix          ###   ########.fr       */
+/*   Updated: 2025/02/24 00:26:26 by alegrix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,12 +46,17 @@ void	flast_bod(t_player *p, t_map *map)
 	t_body	*tmp;
 	t_body	*tmp2;
 
+	tmp = p->body;
+	if (tmp == NULL)
+		return ;
+	if (tmp->next == NULL)
+		return ;
 	while (tmp->next->next != NULL)
 		tmp = tmp->next;
 	tmp2 = tmp;
 	tmp = tmp->next;
 	tmp2->next = NULL;
-	map->con[tmp2->y][tmp2->x] = '0';
+	map->con[tmp->y][tmp->x] = '0';
 	free(tmp);
 }
 

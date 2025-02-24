@@ -6,7 +6,7 @@
 /*   By: alegrix <alegrix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 00:53:17 by alegrix           #+#    #+#             */
-/*   Updated: 2025/02/23 20:38:53 by alegrix          ###   ########.fr       */
+/*   Updated: 2025/02/24 00:50:31 by alegrix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,21 +38,21 @@ void	iditing(char c, t_game *g, int y, int x)
 	if (c == 'W')
 		mlx_put_image_to_window(g->ins->mlx, g->ins->win, g->spt->w, x, y);
 	else if (c == 'E')
-		mlx_put_image_to_window(g->ins->mlx, g->ins->win, g->spt->ex, x, y);
-	else if (c == 'O')
 		mlx_put_image_to_window(g->ins->mlx, g->ins->win, g->spt->eo, x, y);
+	else if (c == 'O')
+		mlx_put_image_to_window(g->ins->mlx, g->ins->win, g->spt->ex, x, y);
 	else if (c == '0')
 		mlx_put_image_to_window(g->ins->mlx, g->ins->win, g->spt->back, x, y);
 	else if (c == 'P')
 		mlx_put_image_to_window(g->ins->mlx, g->ins->win, g->spt->p, x, y);
-	else if (c == 'H' && g->snk->dir == SOUTH)
+	else if (c == 'H' && g->snk->ldir == SOUTH)
 		mlx_put_image_to_window(g->ins->mlx, g->ins->win, g->spt->h_s, x, y);
-	else if (c == 'H' && g->snk->dir == WEST)
+	else if (c == 'H' && g->snk->ldir == WEST)
 		mlx_put_image_to_window(g->ins->mlx, g->ins->win, g->spt->h_w, x, y);
-	else if (c == 'H' && g->snk->dir == EAST)
-		mlx_put_image_to_window(g->ins->mlx, g->ins->win, g->spt->h_e, x, y);
-	else if (c == 'H' && g->snk->dir == NORTH)
+	else if (c == 'H' && g->snk->ldir == NORTH)
 		mlx_put_image_to_window(g->ins->mlx, g->ins->win, g->spt->h_n, x, y);
+	else if (c == 'H')
+		mlx_put_image_to_window(g->ins->mlx, g->ins->win, g->spt->h_e, x, y);
 	else if (c == 'B')
 		mlx_put_image_to_window(g->ins->mlx, g->ins->win, g->spt->b, x, y);
 }
