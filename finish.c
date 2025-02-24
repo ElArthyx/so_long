@@ -1,42 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   finish.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: alegrix <alegrix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/12 00:51:56 by alegrix           #+#    #+#             */
-/*   Updated: 2025/02/24 04:30:14 by alegrix          ###   ########.fr       */
+/*   Created: 2025/02/24 03:40:53 by alegrix           #+#    #+#             */
+/*   Updated: 2025/02/24 03:51:06 by alegrix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-int	rnd(int nb)
+void	win(t_game *g)
 {
-	int		r;
-	int		is_good;
-
-	is_good = 0;
-	while (is_good == 0)
-	{
-		r = rand();
-		r = r % nb;
-		if (r != 0)
-			is_good = 1;
-	}
-	return (r);
+	ft_printf("---------------------------\n");
+	ft_printf("GG You won\n%d apples ate\n%d mouvements\n", g->snk->score,
+		g->mvm);
+	ft_printf("---------------------------\n");
+	free_all(g);
 }
 
-void	giv_app(t_map *map)
+void	dead(t_game *g)
 {
-	map->xap = rnd(map->x_s);
-	map->yap = rnd(map->y_s);
-	while (map->con[map->yap][map->xap] != '0')
-	{
-		map->yap = rnd(map->y_s);
-		map->xap = rnd(map->x_s);
-	}
-	map->con[map->yap][map->xap] = 'P';
-	map->app = 1;
+	ft_printf("---------------------------\n");
+	ft_printf("You're so bad\n%d apples ate\n%d mouvements\n", g->snk->score,
+		g->mvm);
+	ft_printf("---------------------------\n");
+	free_all(g);
 }

@@ -6,7 +6,7 @@
 /*   By: alegrix <alegrix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/22 01:47:10 by alegrix           #+#    #+#             */
-/*   Updated: 2025/02/24 02:34:53 by alegrix          ###   ########.fr       */
+/*   Updated: 2025/02/24 04:37:25 by alegrix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,14 +23,16 @@ void	map_act(t_game *g)
 		tmp = tmp->next;
 	}
 	g->map->con[g->snk->h_y][g->snk->h_x] = 'H';
-	if (g->map->app == 0)
+	if (g->map->app <= 0 && g->snk->score >= g->obj)
 		giv_app(g->map);
-	if (g->snk->score >= 1)
+	if (g->snk->score >= g->obj)
 		g->map->con[g->map->ye][g->map->xe] = 'O';
 }
 
 void	mouv(t_game *g)
 {
+	g->mvm++;
+	ft_printf("Nb mouvement : %d\n", g->mvm);
 	g->snk->n_x = g->snk->h_x;
 	g->snk->n_y = g->snk->h_y;
 	if (g->snk->ldir == EAST)
@@ -50,8 +52,7 @@ void	gfirst(t_game *g, t_player *s, t_map *m)
 	head_bod(s, g);
 	s->ldir = s->dir;
 	mouv(g);
-	ft_printf("snk : %d\nscore :%d\n", size_snk(s), s->score);
-	if (m->con[s->n_y][s->n_x] != 'P')
+	if (m->con[s->n_y][s->n_x] != 'P' && m->con[s->n_y][s->n_x] != 'A')
 		flast_bod(g->snk, g->map);
 	else
 	{
@@ -64,7 +65,6 @@ void	gfirst(t_game *g, t_player *s, t_map *m)
 		win(g);
 	s->h_x = s->n_x;
 	s->h_y = s->n_y;
-	g->mvm++;
 	display(g);
 	g->first = 0;
 }
@@ -78,7 +78,7 @@ void	gcontent(t_game *g, t_player *s, t_map *m)
 		head_bod(s, g);
 		s->ldir = s->dir;
 		mouv(g);
-		if (m->con[s->n_y][s->n_x] != 'P' || s->score == size_snk(s) - 2)
+		if (m->con[s->n_y][s->n_x] != 'P' && m->con[s->n_y][s->n_x] != 'A')
 			flast_bod(g->snk, g->map);
 		else
 		{
@@ -91,7 +91,6 @@ void	gcontent(t_game *g, t_player *s, t_map *m)
 			win(g);
 		g->snk->h_x = g->snk->n_x;
 		g->snk->h_y = g->snk->n_y;
-		g->mvm++;
 		map_act(g);
 		display(g);
 	}

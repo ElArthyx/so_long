@@ -6,7 +6,7 @@
 /*   By: alegrix <alegrix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 23:11:06 by alegrix           #+#    #+#             */
-/*   Updated: 2025/02/23 23:36:20 by alegrix          ###   ########.fr       */
+/*   Updated: 2025/02/24 05:32:55 by alegrix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	flood_fill_apple(char **map, int y, int x)
 	int	result;
 
 	result = 0;
-	if (map[y][x] == 'P')
+	if (map[y][x] == 'A')
 	{
 		map[y][x] = 'W';
 		result++;
@@ -115,7 +115,7 @@ void	ff(t_game *g)
 		return (free_array(tmp), al_error("Can't join exit", g));
 	free_array(tmp);
 	tmp = ft_strdup_tab(g->map->con, g);
-	if (flood_fill_apple(tmp, y, x) != g->map->app)
+	if (flood_fill_apple(tmp, y, x) != g->obj)
 		return (free_array(tmp), al_error("No all apple accessible", g));
 	free_array(tmp);
 }

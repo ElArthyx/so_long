@@ -6,10 +6,11 @@
 /*   By: alegrix <alegrix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 01:28:18 by alegrix           #+#    #+#             */
-/*   Updated: 2025/02/23 20:21:09 by alegrix          ###   ########.fr       */
+/*   Updated: 2025/02/24 05:38:40 by alegrix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "libs/libft/libft.h"
 #include "so_long.h"
 #include <unistd.h>
 
@@ -41,17 +42,13 @@ void	check_line_content(t_map *map, char *line, t_game *g)
 	while (line[i] != '\0' && line[i] != '\n')
 	{
 		if (ft_strchr(L_OBJECT, line[i]) == NULL)
-		{
-			ft_printf("%c", line[i]);
-			free(line);
 			al_error("Bad char in file.ber", g);
-		}
 		if (line[i] == 'E')
 			map->has_exit += 1;
 		else if (line[i] == 'H')
 			map->has_start += 1;
-		else if (line[i] == 'P')
-			map->app += 1;
+		else if (line[i] == 'A')
+			g->obj += 1;
 		i++;
 	}
 	if (map->has_exit > 1 || map->has_start > 1)
@@ -70,7 +67,7 @@ void	check_map_form(t_map *map, t_game *g)
 	if (line == NULL)
 		al_error("Empty file", g);
 	map->x_s = ft_strlen(line) - 1;
-	map->con = malloc(sizeof(char *) * (map->y_s + 1));
+	map->con = ft_calloc(sizeof(char *), map->y_s + 1);
 	if (!map->con)
 		exit(2);
 	map->is_mcont = 1;
@@ -85,9 +82,9 @@ void	check_map_form(t_map *map, t_game *g)
 		map->con[i++] = line;
 		line = get_next_line(map->fd);
 	}
-	map->con[i] = NULL;
-	if (map->app < 1)
+	if (g->obj < 1)
 		al_error("Not item", g);
+	return (map->con[i] = NULL, free(line));
 }
 
 void	check_file_name(t_map *map, t_game *g)
@@ -111,6 +108,7 @@ void	check_file_name(t_map *map, t_game *g)
 		map->y_s++;
 		temp = get_next_line(map->fd);
 	}
+	free(temp);
 	close(map->fd);
 }
 
