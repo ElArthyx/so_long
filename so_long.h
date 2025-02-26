@@ -6,7 +6,7 @@
 /*   By: alegrix <alegrix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/24 02:33:11 by alegrix           #+#    #+#             */
-/*   Updated: 2025/02/24 05:49:03 by alegrix          ###   ########.fr       */
+/*   Updated: 2025/02/26 21:52:54 by alegrix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 # include <X11/Xutil.h>
 # include <X11/keysym.h>
 
-# define L_OBJECT "0WEHA"
+# define L_OBJECT "0WEHAK"
 # define FPS 120
 # define PX 32
 # define EAST 1
@@ -114,7 +114,7 @@ typedef struct s_game
 
 void	ff(t_game *g);
 void	free_array(char **array);
-void	al_error(char *name_err, t_game *game);
+void	erro(char *name_err, t_game *game);
 void	mapchecker(t_game *game);
 void	display(t_game *g);
 void	spriting(t_game *g);

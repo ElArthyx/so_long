@@ -6,7 +6,7 @@
 /*   By: alegrix <alegrix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 21:22:52 by alegrix           #+#    #+#             */
-/*   Updated: 2025/02/24 06:19:29 by alegrix          ###   ########.fr       */
+/*   Updated: 2025/02/26 19:24:16 by alegrix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	free_array(char **array)
 	free(array);
 }
 
-void	ft_bodyclear(t_body *bod, t_player *s)
+void	ft_bodyclear(t_body *bod)
 {
 	t_body	*temp;
 
@@ -36,7 +36,6 @@ void	ft_bodyclear(t_body *bod, t_player *s)
 		free(bod);
 		bod = temp;
 	}
-	free(s);
 }
 
 void	free_sprt(t_game *g)
@@ -62,7 +61,10 @@ int	free_all(t_game *g)
 {
 	free_sprt(g);
 	if (g->mal_pla == 1)
-		ft_bodyclear(g->snk->body, g->snk);
+	{
+		ft_bodyclear(g->snk->body);
+		free(g->snk);
+	}
 	if (g->mal_ins == 1)
 	{
 		if (g->ins->mal_win)
@@ -84,7 +86,7 @@ int	free_all(t_game *g)
 	exit (1);
 }
 
-void	al_error(char *name_err, t_game *g)
+void	erro(char *name_err, t_game *g)
 {
 	ft_printf("Error\n%s\n", name_err);
 	free_all(g);

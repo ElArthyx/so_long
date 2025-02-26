@@ -6,7 +6,7 @@
 /*   By: alegrix <alegrix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 18:15:37 by alegrix           #+#    #+#             */
-/*   Updated: 2025/02/24 05:42:36 by alegrix          ###   ########.fr       */
+/*   Updated: 2025/02/26 19:25:22 by alegrix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ void	head_bod(t_player *snk, t_game *g)
 
 	tmp = malloc(sizeof(t_body));
 	if (!tmp)
-		al_error("Alloc body", g);
+		erro("Alloc body", g);
 	tmp->x = snk->h_x;
 	tmp->y = snk->h_y;
 	tmp->next = snk->body;

@@ -6,7 +6,7 @@
 /*   By: alegrix <alegrix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 23:11:06 by alegrix           #+#    #+#             */
-/*   Updated: 2025/02/24 05:32:55 by alegrix          ###   ########.fr       */
+/*   Updated: 2025/02/26 21:56:27 by alegrix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,13 @@ int	flood_fill_exit(char **map, int y, int x)
 	if (map[y][x] == 'E')
 		return (1);
 	map[y][x] = 'W';
-	if (map[y + 1][x] != 'W')
+	if (map[y + 1][x] != 'W' && map[y + 1][x] != 'K')
 		result += flood_fill_exit(map, y + 1, x);
-	if (map[y - 1][x] != 'W')
+	if (map[y - 1][x] != 'W' && map[y - 1][x] != 'K')
 		result += flood_fill_exit(map, y - 1, x);
-	if (map[y][x + 1] != 'W')
+	if (map[y][x + 1] != 'W' && map[y][x + 1] != 'K')
 		result += flood_fill_exit(map, y, x + 1);
-	if (map[y][x - 1] != 'W')
+	if (map[y][x - 1] != 'W' && map[y][x - 1] != 'K')
 		result += flood_fill_exit(map, y, x - 1);
 	return (result);
 }
@@ -42,13 +42,13 @@ int	flood_fill_apple(char **map, int y, int x)
 		result++;
 	}
 	map[y][x] = 'W';
-	if (map[y + 1][x] != 'W' && map[y + 1][x] != 'E')
+	if (map[y + 1][x] != 'W' && map[y + 1][x] != 'E' && map[y + 1][x] != 'K')
 		result += flood_fill_apple(map, y + 1, x);
-	if (map[y - 1][x] != 'W' && map[y - 1][x] != 'E')
+	if (map[y - 1][x] != 'W' && map[y - 1][x] != 'E' && map[y - 1][x] != 'K')
 		result += flood_fill_apple(map, y - 1, x);
-	if (map[y][x + 1] != 'W' && map[y][x + 1] != 'E')
+	if (map[y][x + 1] != 'W' && map[y][x + 1] != 'E' && map[y][x + 1] != 'K')
 		result += flood_fill_apple(map, y, x + 1);
-	if (map[y][x - 1] != 'W' && map[y][x - 1] != 'E')
+	if (map[y][x - 1] != 'W' && map[y][x - 1] != 'E' && map[y][x - 1] != 'K')
 		result += flood_fill_apple(map, y, x - 1);
 	return (result);
 }
@@ -63,7 +63,7 @@ char	**ft_strdup_tab(char **t1, t_game *g)
 		i++;
 	t2 = malloc(sizeof(char *) * (i + 1));
 	if (!t2)
-		al_error("Malloc map temp", g);
+		erro("Malloc map temp", g);
 	i = 0;
 	while (t1[i] != NULL)
 	{
@@ -112,10 +112,10 @@ void	ff(t_game *g)
 	x = g->snk->h_x;
 	tmp = ft_strdup_tab(g->map->con, g);
 	if (flood_fill_exit(tmp, y, x) == 0)
-		return (free_array(tmp), al_error("Can't join exit", g));
+		return (free_array(tmp), erro("Can't join exit", g));
 	free_array(tmp);
 	tmp = ft_strdup_tab(g->map->con, g);
 	if (flood_fill_apple(tmp, y, x) != g->obj)
-		return (free_array(tmp), al_error("No all apple accessible", g));
+		return (free_array(tmp), erro("No all apple accessible", g));
 	free_array(tmp);
 }

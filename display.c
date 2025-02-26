@@ -6,7 +6,7 @@
 /*   By: alegrix <alegrix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 00:53:17 by alegrix           #+#    #+#             */
-/*   Updated: 2025/02/24 05:12:08 by alegrix          ###   ########.fr       */
+/*   Updated: 2025/02/26 21:57:38 by alegrix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	spriting(t_game *g)
 
 	g->spt = ft_calloc(1, sizeof(t_sprites));
 	if (!g->spt)
-		al_error("Sprites alloc", g);
+		erro("Sprites alloc", g);
 	g->mal_spt = 1;
 	g->spt->h_e = mlx_xpm_file_to_image(g->ins->mlx, "sprt/h_e.xpm", &w, &l);
 	g->spt->h_n = mlx_xpm_file_to_image(g->ins->mlx, "sprt/h_n.xpm", &w, &l);
@@ -38,7 +38,7 @@ void	iditing(char c, t_game *g, int y, int x)
 {
 	if (c == 'W')
 		mlx_put_image_to_window(g->ins->mlx, g->ins->win, g->spt->w, x, y);
-	else if (c == 'E')
+	else if (c == 'E' || c == 'K')
 		mlx_put_image_to_window(g->ins->mlx, g->ins->win, g->spt->eo, x, y);
 	else if (c == 'O')
 		mlx_put_image_to_window(g->ins->mlx, g->ins->win, g->spt->ex, x, y);

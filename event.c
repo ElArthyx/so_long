@@ -6,7 +6,7 @@
 /*   By: alegrix <alegrix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/22 01:47:10 by alegrix           #+#    #+#             */
-/*   Updated: 2025/02/24 04:37:25 by alegrix          ###   ########.fr       */
+/*   Updated: 2025/02/26 22:01:21 by alegrix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,8 @@ void	gfirst(t_game *g, t_player *s, t_map *m)
 		s->score++;
 		m->app--;
 	}
-	if (m->con[s->n_y][s->n_x] == 'W' || m->con[s->n_y][s->n_x] == 'E')
+	if (m->con[s->n_y][s->n_x] == 'W' || m->con[s->n_y][s->n_x] == 'E'
+		|| m->con[s->n_y][s->n_x] == 'K')
 		dead(g);
 	if (m->con[s->n_y][s->n_x] == 'O')
 		win(g);
@@ -85,7 +86,8 @@ void	gcontent(t_game *g, t_player *s, t_map *m)
 			g->snk->score++;
 			m->app--;
 		}
-		if (m->con[s->n_y][s->n_x] == 'W' || m->con[s->n_y][s->n_x] == 'E')
+		if (m->con[s->n_y][s->n_x] == 'W' || m->con[s->n_y][s->n_x] == 'E' ||
+			m->con[s->n_y][s->n_x] == 'K')
 			dead(g);
 		if (m->con[s->n_y][s->n_x] == 'O')
 			win(g);
