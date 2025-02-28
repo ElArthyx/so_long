@@ -6,7 +6,7 @@
 /*   By: alegrix <alegrix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 01:28:18 by alegrix           #+#    #+#             */
-/*   Updated: 2025/02/26 22:03:15 by alegrix          ###   ########.fr       */
+/*   Updated: 2025/02/28 19:51:02 by alegrix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ void	check_map_form(t_map *map, t_game *g)
 	while (line[0] != '\0')
 	{
 		if (ft_strchr(line, '\n') == NULL)
-			line = ft_strjoin(line, "\n");
+			line = ft_strnjoin(line);
 		if (map->x_s != (int)ft_strlen(line) - 1)
 			return (get_next_line(-1), free(line), erro("Map isn't good", g));
 		check_line_content(map, line, g);

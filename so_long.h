@@ -6,7 +6,7 @@
 /*   By: alegrix <alegrix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/24 02:33:11 by alegrix           #+#    #+#             */
-/*   Updated: 2025/02/26 21:52:54 by alegrix          ###   ########.fr       */
+/*   Updated: 2025/02/28 19:51:26 by alegrix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,6 +112,7 @@ typedef struct s_game
 	int			obj;
 }				t_game;
 
+char	*ft_strnjoin(char *line);
 void	ff(t_game *g);
 void	free_array(char **array);
 void	erro(char *name_err, t_game *game);
